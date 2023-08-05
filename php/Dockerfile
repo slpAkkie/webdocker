@@ -12,12 +12,3 @@ RUN chmod +x /usr/local/bin/install-php-extensions && install-php-extensions \
     imagick \
     zip \
     opcache xdebug
-
-ADD ./conf.d/php-fpm.conf /usr/local/etc/php-fpm.conf
-ADD ./conf.d/php.ini /usr/local/etc/php/php.ini
-
-ADD ./conf.d/xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-ADD ./conf.d/memcached.ini /usr/local/etc/php/conf.d/xx-php-ext-memcached.ini
-ADD ./conf.d/opcache.ini /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
-
-RUN rm /var/cache/apk/*
