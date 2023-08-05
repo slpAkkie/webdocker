@@ -19,11 +19,11 @@ services:
       - db
     volumes:
       - ./logs/php:/var/log/php:rw
-      - ./php/conf.d/php-fpm.conf:/usr/local/etc/php-fpm.conf
-      - ./php/conf.d/php.ini:/usr/local/etc/php/php.ini
-      - ./php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-      - ./php/conf.d/memcached.ini:/usr/local/etc/php/conf.d/xx-php-ext-memcached.ini
-      - ./php/conf.d/opcache.ini:/usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+      - ./php/conf.d/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+      - ./php/conf.d/php.ini:/usr/local/etc/php/php.ini:ro
+      - ./php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:ro
+      - ./php/conf.d/memcached.ini:/usr/local/etc/php/conf.d/xx-php-ext-memcached.ini:ro
+      - ./php/conf.d/opcache.ini:/usr/local/etc/php/conf.d/docker-php-ext-opcache.ini:ro
       - ${APP_PATH}:/var/www/html:rw
 
   db:
@@ -36,8 +36,9 @@ services:
       - MYSQL_ROOT_HOST=${MYSQL_ROOT_HOST}
       - TZ=Europe/Moscow
     volumes:
-      - ./data/db-dumps:/docker-entrypoint-initdb.d
-      - ./data/db:/var/lib/mysql
+      -  ./mysql/my.cnf:/etc/mysql/my.cnf:ro
+      - ./data/db-dumps:/docker-entrypoint-initdb.d:ro
+      - ./data/db:/var/lib/mysql:rw
 
   pma:
     image: phpmyadmin:latest
