@@ -1,0 +1,48 @@
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./logs/nginx:/var/log/nginx:rw
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ${APP_PATH}:/var/www/html:ro
+    links:
+      - php-fpm:fpm
+    environment:
+      - TZ=Europe/Moscow
+
+  php-fpm:
+    build: ./php
+    links:
+      - db
+    volumes:
+      - ./logs/php:/var/log/php:rw
+      - ${APP_PATH}:/var/www/html:rw
+
+  db:
+    image: mariadb:latest
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_ROOT_HOST=${MYSQL_ROOT_HOST}
+      - TZ=Europe/Moscow
+    volumes:
+      - ./data/db-dumps:/docker-entrypoint-initdb.d
+      - ./data/db:/var/lib/mysql
+
+  pma:
+    image: phpmyadmin:latest
+    ports:
+      - 8080:80
+    links:
+      - db
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_USER=${MYSQL_USER}
+      - PMA_PASSWORD=${MYSQL_PASSWORD}
+      - TZ=Europe/Moscow
