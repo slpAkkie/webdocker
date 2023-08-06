@@ -52,7 +52,7 @@ services:
   web:
     image: nginx:alpine
     ports:
-      - 80:80
+      - 8000:80
     volumes:
       - ./logs/nginx:/var/log/nginx:rw
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
