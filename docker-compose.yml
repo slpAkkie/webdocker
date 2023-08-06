@@ -10,7 +10,7 @@ services:
       - MYSQL_ROOT_HOST=${MYSQL_ROOT_HOST}
       - TZ=Europe/Moscow
     volumes:
-      -  ./mysql/my.cnf:/etc/mysql/my.cnf:ro
+      - ./mysql/my.cnf:/etc/mysql/my.cnf:ro
       - ./data/db-dumps:/docker-entrypoint-initdb.d:ro
       - ./data/db:/var/lib/mysql:rw
 
