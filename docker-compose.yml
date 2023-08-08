@@ -10,7 +10,7 @@ services:
       - MYSQL_ROOT_HOST=${MYSQL_ROOT_HOST}
       - TZ=Europe/Moscow
     volumes:
-      - ./mysql/my.cnf:/etc/mysql/my.cnf:ro
+      - ./mysql/conf.d/my.cnf:/etc/mysql/my.cnf:ro
       - ./data/db-dumps:/docker-entrypoint-initdb.d:ro
       - ./data/db:/var/lib/mysql:rw
 
@@ -38,9 +38,11 @@ services:
       - ./logs/php:/var/log/php:rw
       - ./php/conf.d/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
       - ./php/conf.d/php.ini:/usr/local/etc/php/php.ini:ro
-      - ./php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:ro
+      - ./php/conf.d/intl.ini:/usr/local/etc/php/conf.d/docker-php-ext-intl.ini:ro
       - ./php/conf.d/memcached.ini:/usr/local/etc/php/conf.d/xx-php-ext-memcached.ini:ro
+      - ./php/conf.d/memcache.ini:/usr/local/etc/php/conf.d/xx-php-ext-memcache.ini:ro
       - ./php/conf.d/opcache.ini:/usr/local/etc/php/conf.d/docker-php-ext-opcache.ini:ro
+      - ./php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:ro
       - ${APP_PATH}:/var/www/html:rw
 
   memcached:
