@@ -36,7 +36,7 @@ services:
       - memcached
     volumes:
       - ./logs/php:/var/log/php:rw
-      - ./php/conf.d/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+      - ./php/conf.d/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf:ro
       - ./php/conf.d/php.ini:/usr/local/etc/php/php.ini:ro
       - ./php/conf.d/intl.ini:/usr/local/etc/php/conf.d/docker-php-ext-intl.ini:ro
       - ./php/conf.d/memcached.ini:/usr/local/etc/php/conf.d/xx-php-ext-memcached.ini:ro
