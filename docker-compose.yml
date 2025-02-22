@@ -34,6 +34,8 @@ services:
     links:
       - db
       - memcached
+    extra_hosts:
+    - host.docker.internal:host-gateway
     volumes:
       - ./logs/php:/var/log/php:rw
       - ./php/conf.d/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf:ro
